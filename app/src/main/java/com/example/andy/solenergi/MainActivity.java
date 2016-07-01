@@ -295,6 +295,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.load_day_data:{
+                dayBatteryFragment.removeGraphData();
+                dayPowerFragment.removeGraphData();
                 String outString="1";
                 byte[] outArray=outString.getBytes(StandardCharsets.UTF_8);
                 mChatService.write(outArray);

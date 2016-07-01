@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -87,6 +85,12 @@ public class DayBatteryFragment extends Fragment {
         rightYAxis.setTextColor(Color.WHITE);
     }
 
+    public void removeGraphData(){
+        batteryVals= new ArrayList<Entry>();
+        xLabels = new ArrayList<String>();
+        count=0;
+    }
+
     public void updateGraph(JSONObject inputJson)
     {
         try{
@@ -136,12 +140,6 @@ public class DayBatteryFragment extends Fragment {
         }
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_day_graph,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     public class WattageYAxisValueFormatter implements YAxisValueFormatter {
 

@@ -22,4 +22,8 @@
         app:showAsAction="ifRoom"
         android:title="@string/secure_connect"/>
 
+    <item android:id="@+id/load_day_data"
+        android:title="load day data"
+        app:showAsAction="never"/>
+
 </menu>
