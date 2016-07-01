@@ -4,28 +4,19 @@ package com.example.andy.solenergi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,25 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
 
-    // Layout Views
-    private TextView voltageView;
-    private TextView batVoltageView;
-    private TextView currentView;
-    private TextView powerView;
 
-    // variables
-    private double voltage;
-    private double batVoltage;
-    private double current;
-    private double power;
-
-    // graphing variables
-    private double graphLastXValue = 0d;
-    private LineGraphSeries<DataPoint> series;
-    private double graph2LastXValue = 0d;
-    private double graph3LastXValue = 0d;
-    private LineGraphSeries<DataPoint> series2;
-    private LineGraphSeries<DataPoint> series3;
 
     /**
      * Name of the connected device
@@ -80,13 +53,6 @@ public class MainActivity extends AppCompatActivity {
      * Member object for the chat services
      */
     private BluetoothService mChatService = null;
-
-    private String[] mGraphTitles;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
     LiveViewFragment LVfragment;
     DayGraphFragment DgFragment;
 
@@ -104,108 +70,15 @@ public class MainActivity extends AppCompatActivity {
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
         }
-
-        if(actionBar==null)Log.v(TAG,"actionbar is Null");
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
-
-        mTitle = mDrawerTitle = getTitle();
-        mGraphTitles = getResources().getStringArray(R.array.graphs_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mGraphTitles));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.drawer_open,R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                actionBar.setTitle(mTitle);
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                actionBar.setTitle(mDrawerTitle);
-            }
-        };
-
-        // Set the drawer toggle as the DrawerListener
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-
-        LVfragment =new LiveViewFragment();
-        DgFragment = new DayGraphFragment();
-        if(LVfragment==null) Log.v(TAG,"fragment null");
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragmentManager==null) Log.v(TAG,"fragment manager null");
-        FragmentTransaction fragTrans= fragmentManager.beginTransaction();
-        if(fragTrans==null)Log.v(TAG,"frag trans null");
-        fragTrans.add(R.id.content_frame, LVfragment);
-        fragTrans.commit();
-    }
-        // Set the drawer toggle as the DrawerListener
-        //mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+
+        LVfragment = (LiveViewFragment) getSupportFragmentManager().findFragmentById(R.id.live_view_fragment);
+        DgFragment = (DayGraphFragment) getSupportFragmentManager().findFragmentById(R.id.day_graph_fragment);
+        return super.onCreateView(parent, name, context, attrs);
     }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
-    /** Swaps fragments in the main content view */
-    private void selectItem(int position) {
-
-        Log.v(TAG,mGraphTitles[position]);
-        Log.v(TAG,position+"");
-        if (position ==0) {
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragTrans= fragmentManager.beginTransaction();
-            fragTrans.replace(R.id.content_frame, LVfragment);
-            fragTrans.commit();
-            mDrawerLayout.closeDrawer(mDrawerList);
-        }
-        if(position==1)
-        {
-
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragTrans= fragmentManager.beginTransaction();
-            fragTrans.replace(R.id.content_frame, DgFragment);
-            fragTrans.commit();
-            mDrawerLayout.closeDrawer(mDrawerList);
-        }
-
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        getActionBar().setTitle(mTitle);
-    }
-
 
     @Override
     public void onStart() {
@@ -405,11 +278,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
         switch (item.getItemId()) {
             case R.id.secure_connect_scan: {
                 // Launch the DeviceListActivity to see devices and do scan
