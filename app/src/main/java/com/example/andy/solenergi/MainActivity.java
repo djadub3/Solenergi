@@ -34,7 +34,7 @@ import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
+    //some changes
 
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
