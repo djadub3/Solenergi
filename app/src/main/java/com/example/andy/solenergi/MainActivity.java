@@ -53,8 +53,10 @@ public class MainActivity extends AppCompatActivity {
      * Member object for the chat services
      */
     private BluetoothService mChatService = null;
-    LiveViewFragment LVfragment;
-    DayGraphFragment DgFragment;
+    LivePowerFragment livePowerFragment;
+    LiveBatteryFragment liveBatteryFragment;
+    DayPowerFragment dayPowerFragment;
+    DayBatteryFragment dayBatteryFragment;
 
 
 
@@ -75,8 +77,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
 
-        LVfragment = (LiveViewFragment) getSupportFragmentManager().findFragmentById(R.id.live_view_fragment);
-        DgFragment = (DayGraphFragment) getSupportFragmentManager().findFragmentById(R.id.day_graph_fragment);
+        livePowerFragment = (LivePowerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_power_graph);
+        liveBatteryFragment = (LiveBatteryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_battery_graph);
+        dayPowerFragment = (DayPowerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_day_power_graph);
+        dayBatteryFragment =(DayBatteryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_day_battery_graph);
         return super.onCreateView(parent, name, context, attrs);
     }
 
@@ -187,8 +191,9 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         inputJson = new JSONObject((String) msg.obj);           //extract JSON string from msg
                         Log.v(TAG,inputJson.toString());
-                        //LiveViewFragment LiveViewFrag = (LiveViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_view);
-                        LVfragment.updateGraph(inputJson);
+                        //LivePowerFragment LiveViewFrag = (LivePowerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_power_graph);
+                        livePowerFragment.updateGraph(inputJson);
+                        liveBatteryFragment.updateGraph(inputJson);
 
                     } catch (JSONException e) {                                 // catch errors with JSON extraction
                         e.printStackTrace();
@@ -213,8 +218,9 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         inputJson2 = new JSONObject((String) msg.obj);           //extract JSON string from msg
                         //Log.v(TAG,inputJson2.toString());
-                        //LiveViewFragment LiveViewFrag = (LiveViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_view);
-                        DgFragment.updateGraph(inputJson2);
+                        //LivePowerFragment LiveViewFrag = (LivePowerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_power_graph);
+                        dayPowerFragment.updateGraph(inputJson2);
+                        dayBatteryFragment.updateGraph(inputJson2);
 
                     } catch (JSONException e) {                                 // catch errors with JSON extraction
                         e.printStackTrace();

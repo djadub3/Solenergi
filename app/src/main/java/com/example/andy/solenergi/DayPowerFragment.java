@@ -30,14 +30,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class DayGraphFragment extends Fragment {
+public class DayPowerFragment extends Fragment {
 
-    private View mView;
-    // basic variables
-    private double voltage;
-    private double batVoltage;
-    private double current;
-    private double power;
     private String time;
     ArrayList<Entry> powerVals;
     ArrayList<Entry> batteryVals;
@@ -46,7 +40,7 @@ public class DayGraphFragment extends Fragment {
     LineChart lineChart;
 
 
-    public DayGraphFragment() {
+    public DayPowerFragment() {
         // Required empty public constructor
     }
 
@@ -64,7 +58,7 @@ public class DayGraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_day_graph, container, false);
+        return inflater.inflate(R.layout.fragment_day_power_graph, container, false);
     }
 
     @Override
@@ -100,9 +94,7 @@ public class DayGraphFragment extends Fragment {
         try{
             if(inputJson.getInt("end")==0){
                 float power =(float) inputJson.getDouble("power");
-                float batteryVoltage = (float) inputJson.getDouble("batVoltage");
                 powerVals.add(new Entry(power,count));
-                batteryVals.add(new Entry(batteryVoltage,count));
                 count++;
 
                 time = inputJson.getString("time");
@@ -130,27 +122,15 @@ public class DayGraphFragment extends Fragment {
                 powerSet.setDrawCubic(true);
                 powerSet.setDrawCircles(false);
                 powerSet.setLineWidth(3);
-
-
-                LineDataSet batterySet = new LineDataSet(batteryVals, "Battery Voltage");
-                batterySet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-                batterySet.setDrawCubic(true);
-                batterySet.setDrawCircles(false);
-                batterySet.setLineWidth(3);
-                batterySet.setDrawFilled(true);
-                batterySet.setFillColor(Color.GREEN);
-                batterySet.setColor(Color.GREEN);
-                batterySet.setDrawValues(false);
+                powerSet.setDrawFilled(true);
+                powerSet.setFillColor(Color.RED);
 
                 ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
                 dataSets.add(powerSet);
-                dataSets.add(batterySet);
-
 
                 LineData data = new LineData(xLabels,dataSets);
                 data.setDrawValues(false);
                 lineChart.setData(data);
-
                 lineChart.animateY(2500);
             }
         } catch (JSONException e) {

@@ -144,27 +144,45 @@
             android:layout_weight="1">
 
             <fragment
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:name="com.example.andy.solenergi.LiveViewFragment"
-                android:id="@+id/live_view_fragment"
-                tools:layout="@layout/fragment_live_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.example.andy.solenergi.LivePowerFragment"
+                android:id="@+id/fragment_live_power_graph"
+                tools:layout="@layout/fragment_live_power_graph"
                 android:layout_weight="1" />
 
             <fragment
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:name="com.example.andy.solenergi.DayGraphFragment"
-                android:id="@+id/day_graph_fragment"
-                tools:layout="@layout/fragment_day_graph"
-                android:layout_weight="1" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.example.andy.solenergi.LiveBatteryFragment"
+                android:id="@+id/fragment_live_battery_graph"
+                android:layout_weight="1"
+                tools:layout="@layout/fragment_live_battery_graph" />
+
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1">
+
+            <fragment
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:name="com.example.andy.solenergi.DayPowerFragment"
+                android:id="@+id/fragment_day_power_graph"
+                tools:layout="@layout/fragment_day_power_graph"
+                android:layout_weight="1" />
+
+            <fragment
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:name="com.example.andy.solenergi.DayBatteryFragment"
+                android:id="@+id/fragment_day_battery_graph"
+                tools:layout="@layout/fragment_day_power_graph"
+                android:layout_weight="1" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

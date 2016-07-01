@@ -25,10 +25,10 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class LiveViewFragment extends Fragment {
+public class LivePowerFragment extends Fragment {
     //some changes
 
-    private static final String TAG = "LiveViewFragment";
+    private static final String TAG = "LivePowerFragment";
 
 
 
@@ -53,7 +53,7 @@ public class LiveViewFragment extends Fragment {
     ArrayList<String> xLabels;
     int count;
 
-    public LiveViewFragment() {
+    public LivePowerFragment() {
     }
 
     @Override
@@ -66,20 +66,17 @@ public class LiveViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_live_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_live_power_graph, container, false);
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        //voltageView = (TextView) view.findViewById(R.id.voltage_text);
-        //batVoltageView = (TextView) view.findViewById(R.id.bat_voltage_text);
-        //currentView = (TextView) view.findViewById(R.id.current_text);
-        //powerView = (TextView) view.findViewById(R.id.power_text);
         count=0;
 
         lineChart = (LineChart) view.findViewById(R.id.chart);
         lineChart.setDescription("");
+        lineChart.getLegend().setTextColor(Color.WHITE);
 
         data = new LineData();
 
