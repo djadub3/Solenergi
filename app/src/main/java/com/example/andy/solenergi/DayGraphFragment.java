@@ -73,22 +73,26 @@ public class DayGraphFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         lineChart = (LineChart) view.findViewById(R.id.chart);
         lineChart.setDescription("");
+        lineChart.getLegend().setTextColor(Color.WHITE);
+
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.WHITE);
 
         YAxis leftYAxis = lineChart.getAxisLeft();
         leftYAxis.setValueFormatter(new WattageYAxisValueFormatter());
         leftYAxis.setLabelCount(6, true);
         leftYAxis.setAxisMinValue(0);
         leftYAxis.setAxisMaxValue(5);
+        leftYAxis.setTextColor(Color.WHITE);
 
         YAxis rightYAxis = lineChart.getAxisRight();
         rightYAxis.setValueFormatter(new VoltageYAxisValueFormatter());
-        rightYAxis.setLabelCount(6,true);
+        rightYAxis.setLabelCount(6, true);
         rightYAxis.setAxisMinValue(0);
         rightYAxis.setAxisMaxValue(5);
-
+        rightYAxis.setTextColor(Color.WHITE);
     }
 
     public void updateGraph(JSONObject inputJson)
@@ -136,10 +140,12 @@ public class DayGraphFragment extends Fragment {
                 batterySet.setDrawFilled(true);
                 batterySet.setFillColor(Color.GREEN);
                 batterySet.setColor(Color.GREEN);
+                batterySet.setDrawValues(false);
 
                 ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
                 dataSets.add(powerSet);
                 dataSets.add(batterySet);
+
 
                 LineData data = new LineData(xLabels,dataSets);
                 data.setDrawValues(false);

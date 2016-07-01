@@ -72,10 +72,10 @@ public class LiveViewFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        voltageView = (TextView) view.findViewById(R.id.voltage_text);
-        batVoltageView = (TextView) view.findViewById(R.id.bat_voltage_text);
-        currentView = (TextView) view.findViewById(R.id.current_text);
-        powerView = (TextView) view.findViewById(R.id.power_text);
+        //voltageView = (TextView) view.findViewById(R.id.voltage_text);
+        //batVoltageView = (TextView) view.findViewById(R.id.bat_voltage_text);
+        //currentView = (TextView) view.findViewById(R.id.current_text);
+        //powerView = (TextView) view.findViewById(R.id.power_text);
         count=0;
 
         lineChart = (LineChart) view.findViewById(R.id.chart);
@@ -91,13 +91,14 @@ public class LiveViewFragment extends Fragment {
         leftYAxis.setLabelCount(6, true);
         leftYAxis.setAxisMinValue(0);
         leftYAxis.setAxisMaxValue(5);
+        leftYAxis.setTextColor(Color.WHITE);
 
         YAxis rightYAxis = lineChart.getAxisRight();
         rightYAxis.setValueFormatter(new VoltageAmperageYAxisValueFormatter());
         rightYAxis.setLabelCount(6, true);
         rightYAxis.setAxisMinValue(0);
         rightYAxis.setAxisMaxValue(5);
-
+        rightYAxis.setTextColor(Color.WHITE);
 
         powerSet = new LineDataSet(null, "Power");
         powerSet.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -106,24 +107,25 @@ public class LiveViewFragment extends Fragment {
         powerSet.setDrawCircles(false);
         powerSet.setLineWidth(3);
 
-        batterySet = new LineDataSet(null, "Battery");
+        /*batterySet = new LineDataSet(null, "Battery");
         batterySet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        batterySet.setColor(Color.GREEN);
+        batterySet.setColor(Color.rgb(0, 249, 255));
         batterySet.setDrawCubic(true);
         batterySet.setDrawCircles(false);
-        batterySet.setLineWidth(3);
+        batterySet.setLineWidth(3);*/
 
-        currentSet = new LineDataSet(null, "Current");
+        /*currentSet = new LineDataSet(null, "Current");
         currentSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
         currentSet.setColor(Color.BLUE);
         currentSet.setDrawCubic(true);
         currentSet.setDrawCircles(false);
-        currentSet.setLineWidth(3);
+        currentSet.setLineWidth(3);*/
 
         data.addDataSet(powerSet);
-        data.addDataSet(batterySet);
-        data.addDataSet(currentSet);
+        //data.addDataSet(batterySet);
+        //data.addDataSet(currentSet);
         lineChart.setData(data);
+        ;
 
     }
 
@@ -131,21 +133,21 @@ public class LiveViewFragment extends Fragment {
     {
         try {
             voltage = Float.parseFloat(inputJson.getString("voltage"));
-            voltageView.setText(String.format("%.2f", voltage) + "V");    // update text views
+            //voltageView.setText(String.format("%.2f", voltage) + "V");    // update text views
 
             batVoltage = Float.parseFloat(inputJson.getString("batVoltage"));
-            batVoltageView.setText(String.format("%.2f", batVoltage) + "V");
+            //batVoltageView.setText(String.format("%.2f", batVoltage) + "V");
 
             current = Math.abs(Float.parseFloat(inputJson.getString("current")));
-            currentView.setText((String.format("%.2f", current) + "A"));
+            //currentView.setText((String.format("%.2f", current) + "A"));
 
             power = voltage*current;
-            powerView.setText((String.format("%.2f", power) + "W"));
+            //powerView.setText((String.format("%.2f", power) + "W"));
 
-            data.addXValue(count+"");
+            data.addXValue(count + "");
             powerSet.addEntry(new Entry(power, count));
-            batterySet.addEntry(new Entry(batVoltage, count));
-            currentSet.addEntry(new Entry(current, count));
+            //batterySet.addEntry(new Entry(batVoltage, count));
+            //currentSet.addEntry(new Entry(current, count));
             count++;
 
 
