@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/activity_main"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="SOLAR POWER"
+            android:id="@+id/textView"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="20dp"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="BATTERY VOLTAGE"
+            android:id="@+id/textView2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:textColor="@android:color/white"
+            android:paddingLeft="20dp"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="OUTPUT POWER"
+            android:id="@+id/textView3"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingTop="5dp"
+            android:paddingRight="20dp"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="5.00W"
+            android:id="@+id/solar_power_text"
+            android:textColor="#ff0000"
+            android:layout_weight="1"
+            android:textSize="40dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="12.50V"
+            android:id="@+id/battery_voltage_text"
+            android:textColor="#00ff00"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="40dp"
+            android:paddingTop="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="5.00W"
+            android:id="@+id/textView6"
+            android:textColor="#f0ff00"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textSize="40dp"
+            android:paddingRight="20dp"
+            android:paddingTop="0dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Generated: 5.125 kWh"
+            android:id="@+id/textView7"
+            android:textColor="#ff0000"
+            android:paddingLeft="23dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="10000 mAh"
+            android:id="@+id/textView8"
+            android:textColor="#00ff00"
+            android:gravity="center"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Consumed: 5.125 kWh"
+            android:id="@+id/textView9"
+            android:textColor="#f0ff00"
+            android:gravity="right"
+            android:paddingRight="23dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

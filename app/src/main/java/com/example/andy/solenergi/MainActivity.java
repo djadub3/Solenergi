@@ -25,14 +25,11 @@ import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    //some changes
 
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
-
-
 
     /**
      * Name of the connected device
@@ -53,10 +50,14 @@ public class MainActivity extends AppCompatActivity {
      * Member object for the chat services
      */
     private BluetoothService mChatService = null;
+
+    // View fragments
     LivePowerFragment livePowerFragment;
     LiveBatteryFragment liveBatteryFragment;
     DayPowerFragment dayPowerFragment;
     DayBatteryFragment dayBatteryFragment;
+    TextItemsFragment textItemsFragment;
+
 
 
 
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         liveBatteryFragment = (LiveBatteryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_battery_graph);
         dayPowerFragment = (DayPowerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_day_power_graph);
         dayBatteryFragment =(DayBatteryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_day_battery_graph);
+        textItemsFragment = (TextItemsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_text_items);
         return super.onCreateView(parent, name, context, attrs);
     }
 
@@ -194,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         //LivePowerFragment LiveViewFrag = (LivePowerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_live_power_graph);
                         livePowerFragment.updateGraph(inputJson);
                         liveBatteryFragment.updateGraph(inputJson);
+                        textItemsFragment.updateText(inputJson);
 
                     } catch (JSONException e) {                                 // catch errors with JSON extraction
                         e.printStackTrace();
